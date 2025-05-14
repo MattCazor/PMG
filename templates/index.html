@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur de Motifs Géométriques</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎨 Générateur de Motifs Géométriques</h1>
+        <form>
+            <label>Nombre de côtés :</label>
+            <input type="number" name="cotes" min="3" required>
+
+            <label>Profondeur / Répétitions :</label>
+            <input type="number" name="rep" min="1" required>
+
+            <label>Taille initiale :</label>
+            <input type="number" name="taille" min="10" required>
+
+            <label>Angle de rotation (en degrés) :</label>
+            <input type="number" name="angle" min="0" max="360" required>
+
+            <label>Couleur :</label>
+            <input type="color" name="color" required>
+
+            <button type="submit">Générer le motif</button>
+        </form>
+
+        <div class="result">
+            <h2>Résultat :</h2>
+            <img src="{{ image_url }}" alt="Motif généré">
+        </div>
+
+    </div>
+</body>
+
+</html>
