@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <h1>🎨 Générateur de Motifs Géométriques</h1>
-        <form>
+        <form method="POST" action="/generer">
             <label>Nombre de côtés :</label>
             <input type="number" name="cotes" min="3" required>
 
@@ -25,14 +25,20 @@
             <input type="number" name="angle" min="0" max="360" required>
 
             <label>Couleur :</label>
-            <input type="color" name="color" required>
+            <input type="color" name="couleur" required>
+
 
             <button type="submit">Générer le motif</button>
+
         </form>
 
         <div class="result">
             <h2>Résultat :</h2>
+            {% if image_url %}
             <img src="{{ image_url }}" alt="Motif généré">
+            {% else %}
+            <p>Aucun motif généré pour le moment.</p>
+            {% endif %}
         </div>
 
     </div>
