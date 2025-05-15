@@ -6,14 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Générateur de Motifs Géométriques</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <!-- le 'href' doit etre ecris de cette facon pour pouvoir etre lu avec flask -->
 </head>
 
 <body>
     <div class="container">
         <h1>🎨 Générateur de Motifs Géométriques</h1>
         <form method="POST" action="/generer">
+            <!-- la metode 'post' est importante pour recuperer les donnees, l'action 
+            permet d'indiquer a flask ou se trouvent les informations a recupere -->
             <label>Nombre de côtés :</label>
             <input type="number" name="cotes" min="3" required>
+            <!-- la balise 'required' permet d'empecher l'envoie si les champs ne sont pas remplis comme il faut -->
 
             <label>Profondeur / Répétitions :</label>
             <input type="number" name="rep" min="1" required>
@@ -35,7 +39,9 @@
         <div class="result">
             <h2>Résultat :</h2>
             {% if image_url %}
+            <!-- si une image a ete genere flask l'enverra et on rentrera dans le if -->
             <img src="{{ image_url }}" alt="Motif généré">
+            <!-- image_url correspond a la varibale a remplacer lorsque flask genere le code html -->
             {% else %}
             <p>Aucun motif généré pour le moment.</p>
             {% endif %}
