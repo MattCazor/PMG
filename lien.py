@@ -9,14 +9,21 @@ def index():
 
 @app.route("/generer", methods=["POST"]) #losque l'on clique sur generer on lance la methode post presente dans le form identifier comme /generer
 def generer():
-    nb_cotes = request.form["cotes"] #recupere la donnee cotes
-    nb_rep = request.form["rep"]
-    taille = request.form["taille"]
-    angle = request.form["angle"]
-    couleur = request.form["couleur"]
-    subprocess.run(["python3", "generateur.py", nb_cotes, nb_rep, taille, angle, couleur]) #compile l'autre fichier python avec les donnees recuperer mais sans perturber le serveur 
-    image_url = url_for('static', filename='motif.png') #recupere l'url de l'image cree 
+    mode = request.form["mode"]
+    if mode == "forme":
+        nb_cotes = request.form["cotes"] #recupere la donnee cotes
+        nb_rep = request.form["rep"]
+        taille = request.form["taille"]
+        angle = request.form["angle"]
+        couleur = request.form["couleur"]
+        subprocess.run(["python3", "generateur.py",mode, nb_cotes, nb_rep, taille, angle, couleur], check=True) 
+    elif mode == "fractale":
+        taille = request.form["taille"]
+        niveau = request.form["niveau"]
+        couleur = request.form["couleur"]
+        subprocess.run(["python3", "generateur.py",mode, taille, niveau, couleur]) 
+    image_url = url_for('static', filename='motif.png') 
     return render_template("index.html", image_url=image_url) #affiche la page avec l'image genere 
 
-if __name__ == "__main__": #ne compile que si le fichier est compile directement 
-    app.run(debug=True) #demare le serveur et le met a jour a la moindre modifictaion du code 
+
+app.run(debug=True) #demare le serveur et le met a jour a la moindre modifictaion du code 

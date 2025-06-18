@@ -15,21 +15,29 @@
         <form method="POST" action="/generer">
             <!-- la metode 'post' est importante pour recuperer les donnees, l'action 
             permet d'indiquer a flask ou se trouvent les informations a recupere -->
-            <label>Nombre de côtés :</label>
-            <input type="number" name="cotes" min="3" required>
+            <label>mode</label>
+            <select name="mode" id="mode">
+                <option value="forme">forme</option>
+                <option value="fractale">fractale</option>
+            </select>
+            <label class="simple">Nombre de côtés :</label>
+            <input type="number" name="cotes" min="3" class="simple">
             <!-- la balise 'required' permet d'empecher l'envoie si les champs ne sont pas remplis comme il faut -->
 
-            <label>Profondeur / Répétitions :</label>
-            <input type="number" name="rep" min="1" required>
+            <label class="simple">Profondeur / Répétitions :</label>
+            <input type="number" name="rep" min="1" class="simple">
 
             <label>Taille initiale :</label>
             <input type="number" name="taille" min="10" required>
 
-            <label>Angle de rotation (en degrés) :</label>
-            <input type="number" name="angle" min="0" max="360" required>
+            <label class="simple">Angle de rotation (en degrés) :</label>
+            <input type="number" name="angle" min="0" max="360" class="simple">
+
+            <label class="fract">niveau</label>
+            <input type="number" name="niveau" class="fract">
 
             <label>Couleur :</label>
-            <input type="color" name="couleur" required>
+            <input type="color" name="couleur">
 
 
             <button type="submit">Générer le motif</button>
@@ -48,6 +56,31 @@
         </div>
 
     </div>
+    <script>
+        const select = document.getElementById("mode");
+        const fractFields = document.querySelectorAll(".fract");
+        const simpleFields = document.querySelectorAll(".simple");
+
+        select.addEventListener("change", changement)
+        function changement(){
+            if (select.value == "forme") {
+                for (const elem of fractFields) {
+                    elem.style.display = "none";
+                }
+                for (const elem of simpleFields) {
+                    elem.style.display = "block";
+                }
+            } else {
+                for(const elem of simpleFields){
+                    elem.style.display = "none";
+                }
+                for(const elem of fractFields){
+                    elem.style.display = "block";
+                }
+            }
+        }
+        changement();
+    </script>
 </body>
 
 </html>
