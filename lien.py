@@ -19,9 +19,15 @@ def generer():
         subprocess.run(["python3", "generateur.py",mode, nb_cotes, nb_rep, taille, angle, couleur], check=True) 
     elif mode == "fractale":
         taille = request.form["taille"]
-        niveau = request.form["niveau"]
+        niveau = request.form["rep"]
         couleur = request.form["couleur"]
         subprocess.run(["python3", "generateur.py",mode, taille, niveau, couleur]) 
+    elif mode == "spirale":
+        taille = request.form["taille"]
+        angle = request.form["angle"]
+        pas = request.form["pas"]
+        couleur = request.form["couleur"]
+        subprocess.run(["python3", "generateur.py",mode, taille, angle, pas, couleur]) 
     image_url = url_for('static', filename='motif.png') 
     return render_template("index.html", image_url=image_url) #affiche la page avec l'image genere 
 

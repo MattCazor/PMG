@@ -6,75 +6,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Générateur de Motifs Géométriques</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
-    <!-- le 'href' doit etre ecris de cette facon pour pouvoir etre lu avec flask -->
 </head>
 
 <body>
     <div class="container">
-        <h1>🎨 Générateur de Motifs Géométriques</h1>
-        <form method="POST" action="/generer">
-            <!-- la metode 'post' est importante pour recuperer les donnees, l'action 
-            permet d'indiquer a flask ou se trouvent les informations a recupere -->
-            <label>mode</label>
-            <select name="mode" id="mode">
-                <option value="forme">forme</option>
-                <option value="fractale">fractale</option>
-            </select>
-            <label class="simple">Nombre de côtés :</label>
-            <input type="number" name="cotes" min="3" class="simple">
-            <!-- la balise 'required' permet d'empecher l'envoie si les champs ne sont pas remplis comme il faut -->
+        <h1>Générateur de Motifs Géométriques</h1>
+        <div class="form-result">
+            <form method="POST" action="/generer">
+                <h2>Parametres :</h2>
+                <label>Mode :</label>
+                <select name="mode" id="mode">
+                    <option value="forme">Forme</option>
+                    <option value="fractale">Fractale</option>
+                    <option value="spirale">Spirale</option>
+                </select>
+                <label class="simple">Nombre de côtés :</label>
+                <input type="number" name="cotes" min="3" class="simple">
 
-            <label class="simple">Profondeur / Répétitions :</label>
-            <input type="number" name="rep" min="1" class="simple">
+                <label class="rep">Profondeur / Répétitions :</label>
+                <input type="number" name="rep" min="1" class="rep">
 
-            <label>Taille initiale :</label>
-            <input type="number" name="taille" min="10" required>
+                <label>Taille initiale :</label>
+                <input type="number" name="taille" min="10" required>
 
-            <label class="simple">Angle de rotation (en degrés) :</label>
-            <input type="number" name="angle" min="0" max="360" class="simple">
+                <label class="angl">Angle de rotation (en degrés) :</label>
+                <input type="number" name="angle" min="0" max="360" class="angl">
 
-            <label class="fract">niveau</label>
-            <input type="number" name="niveau" class="fract">
-
-            <label>Couleur :</label>
-            <input type="color" name="couleur">
+                <label class="spir">Pas</label>
+                <input type="float" name="pas" class="spir">
 
 
-            <button type="submit">Générer le motif</button>
+                <label>Couleur :</label>
+                <input type="color" name="couleur" id="col" value="{{ couleur|default('#000000') }}">
 
-        </form>
 
-        <div class="result">
-            <h2>Résultat :</h2>
-            {% if image_url %}
-            <!-- si une image a ete genere flask l'enverra et on rentrera dans le if -->
-            <img src="{{ image_url }}" alt="Motif généré">
-            <!-- image_url correspond a la varibale a remplacer lorsque flask genere le code html -->
-            {% else %}
-            <p>Aucun motif généré pour le moment.</p>
-            {% endif %}
+                <button type="submit">Générer le motif</button>
+
+            </form>
+
+            <div class="result">
+                <h2>Résultat :</h2>
+                {% if image_url %}
+                <!-- si une image a ete genere flask l'enverra et on rentrera dans le if -->
+                <img src="{{ image_url }}" alt="Motif généré">
+                <!-- image_url correspond a la varibale a remplacer lorsque flask genere le code html -->
+                {% else %}
+                <p>Aucun motif généré pour le moment.</p>
+                {% endif %}
+            </div>
         </div>
 
     </div>
     <script>
         const select = document.getElementById("mode");
-        const fractFields = document.querySelectorAll(".fract");
-        const simpleFields = document.querySelectorAll(".simple");
+        const fract = document.querySelectorAll(".fract");
+        const simple = document.querySelectorAll(".simple");
+        const rep = document.querySelectorAll(".rep")
+        const Angle = document.querySelectorAll(".angl")
+        const spirale = document.querySelectorAll(".spir")
 
         select.addEventListener("change", changement)
-        function changement(){
+        function changement() {
             if (select.value == "forme") {
-                for (const elem of fractFields) {
+                for (const elem of fract) {
                     elem.style.display = "none";
                 }
-                for (const elem of simpleFields) {
+                for (const elem of simple) {
                     elem.style.display = "block";
                 }
-            } else {
-                for(const elem of simpleFields){
+                for (const elem of rep) {
+                    elem.style.display = "block";
+                }
+                for (const elem of spirale) {
                     elem.style.display = "none";
                 }
-                for(const elem of fractFields){
+                for (const elem of Angle) {
+                    elem.style.display = "block";
+                }
+            }
+            else if (select.value == "fractale") {
+                for (const elem of simple) {
+                    elem.style.display = "none";
+                }
+                for (const elem of fract) {
+                    elem.style.display = "block";
+                }
+                for (const elem of rep) {
+                    elem.style.display = "block";
+                }
+                for (const elem of spirale) {
+                    elem.style.display = "none";
+                }
+                for (const elem of Angle) {
+                    elem.style.display = "none";
+                }
+            }
+            else if (select.value == "spirale") {
+                for (const elem of simple) {
+                    elem.style.display = "none";
+                }
+                for (const elem of fract) {
+                    elem.style.display = "none";
+                }
+                for (const elem of rep) {
+                    elem.style.display = "none";
+                }
+                for (const elem of spirale) {
+                    elem.style.display = "block";
+                }
+                for (const elem of Angle) {
                     elem.style.display = "block";
                 }
             }
