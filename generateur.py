@@ -8,6 +8,16 @@ t = turtle.Turtle()
 t.speed(0)
 turtle.tracer(0, 0) 
 
+def enregistrement():
+    screen.update()
+    canvas = screen.getcanvas() #recupere le dessin
+    eps_path = "static/motif.eps" #indique ou sauvgearder le fichier .eps
+    png_path = "static/motif.png" #indique ou sauvegarder le fichier .png
+    canvas.postscript(file=eps_path) #enregistrement du dessin 
+    img = Image.open(eps_path) #recupere le dessin dans une variable sous forme d'image 
+    img.save(png_path) #sauvegarde l'image en .png
+    turtle.bye() #ferme la console de dessin 
+
 
 def dessin(cote, rep, taille, angle, couleur):
     angle_fig=360/cote 
@@ -17,13 +27,7 @@ def dessin(cote, rep, taille, angle, couleur):
             t.forward(taille)
             t.right(angle_fig)
         t.right(angle)
-    canvas = screen.getcanvas() #recupere le dessin
-    eps_path = "static/motif.eps" #indique ou sauvgearder le fichier .eps
-    png_path = "static/motif.png" #indique ou sauvegarder le fichier .png
-    canvas.postscript(file=eps_path) #enregistrement du dessin 
-    img = Image.open(eps_path) #recupere le dessin dans une variable sous forme d'image 
-    img.save(png_path) #sauvegarde l'image en .png
-    turtle.bye() #ferme la console de dessin 
+    enregistrement()
     
 def fractale(longueur, niveau):
     if niveau == 0:
@@ -47,14 +51,7 @@ def dessine_fractale(taille, niveau, couleur):
     for i in range(3):  
         fractale(taille, niveau)
         t.right(120)
-    screen.update()
-    canvas = screen.getcanvas() 
-    eps_path = "static/motif.eps" 
-    png_path = "static/motif.png" 
-    canvas.postscript(file=eps_path) 
-    img = Image.open(eps_path) 
-    img.save(png_path) 
-    turtle.bye() 
+    enregistrement()
 
 def spirale(taille, angle, pas, couleur):
     t.color(couleur)
@@ -68,14 +65,7 @@ def spirale(taille, angle, pas, couleur):
         diametre = math.hypot(x, y)
         if diametre * 2 >= taille:
             break
-    screen.update()
-    canvas = screen.getcanvas() 
-    eps_path = "static/motif.eps" 
-    png_path = "static/motif.png" 
-    canvas.postscript(file=eps_path) 
-    img = Image.open(eps_path) 
-    img.save(png_path)
-    turtle.bye() 
+    enregistrement()
 
 mode = sys.argv[1]
 if mode == "forme":
