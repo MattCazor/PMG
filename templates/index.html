@@ -53,6 +53,15 @@
                 {% else %}
                 <p>Aucun motif généré pour le moment.</p>
                 {% endif %}
+
+                <div class="presuiv">
+                    <form method="POST" action="/precedent">
+                        <button type="submit" class="presuiv_btn"> precedent </button>
+                    </form>
+                    <form method="POST" action="/suivant">
+                        <button type="submit" class="presuiv_btn"> suivant </button>
+                    </form>
+                </div>
             </div>
         </div>
 
