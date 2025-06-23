@@ -21,20 +21,22 @@
                     <option value="spirale">Spirale</option>
                 </select>
                 <label class="simple">Nombre de côtés :</label>
-                <input type="number" name="cotes" min="3" class="simple">
+                <input type="number" name="cotes" min="3" class="simple" placeholder="exemple: 4">
 
                 <label class="rep">Profondeur / Répétitions :</label>
-                <input type="number" name="rep" min="1" class="rep">
+                <input type="number" name="rep" min="1" class="rep" placeholder="exemple: 4">
+
+                <label class="niveau">Niveau :</label>
+                <input type="number" name="niveau" min="1" max="5" class="niveau" placeholder="exemple: 3">
 
                 <label>Taille initiale :</label>
-                <input type="number" name="taille" min="10" required>
+                <input type="number" name="taille" min="50" required placeholder="exemple: 200">
 
                 <label class="angl">Angle de rotation (en degrés) :</label>
-                <input type="number" name="angle" min="0" max="360" class="angl">
+                <input type="number" name="angle" min="0" max="360" class="angl" placeholder="exemple: 15">
 
                 <label class="spir">Pas</label>
-                <input type="float" name="pas" class="spir">
-
+                <input type="number" name="pas" min="0.01" max="1" step="0.01" class="spir" placeholder="exemple: 0.5">
 
                 <label>Couleur :</label>
                 <input type="color" name="couleur" id="col" value="{{ couleur|default('#000000') }}">
@@ -73,6 +75,7 @@
         const rep = document.querySelectorAll(".rep")
         const Angle = document.querySelectorAll(".angl")
         const spirale = document.querySelectorAll(".spir")
+        const niveau = document.querySelectorAll(".niveau")
 
         select.addEventListener("change", changement)
         function changement() {
@@ -85,6 +88,9 @@
                 }
                 for (const elem of rep) {
                     elem.style.display = "block";
+                }
+                for (const elem of niveau) {
+                    elem.style.display = "none";
                 }
                 for (const elem of spirale) {
                     elem.style.display = "none";
@@ -101,6 +107,9 @@
                     elem.style.display = "block";
                 }
                 for (const elem of rep) {
+                    elem.style.display = "none";
+                }
+                for (const elem of niveau) {
                     elem.style.display = "block";
                 }
                 for (const elem of spirale) {
@@ -118,6 +127,9 @@
                     elem.style.display = "none";
                 }
                 for (const elem of rep) {
+                    elem.style.display = "none";
+                }
+                for (const elem of niveau) {
                     elem.style.display = "none";
                 }
                 for (const elem of spirale) {

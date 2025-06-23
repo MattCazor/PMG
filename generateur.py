@@ -61,15 +61,15 @@ def spirale(image_genere, taille, angle, pas, couleur):
         t.right(angle)
         longueur += pas
     
-        x, y = t.pos()
-        diametre = math.hypot(x, y)
-        if diametre * 2 >= taille:
+        x, y = t.pos() #recupere la position du curseur 
+        rayon = math.hypot(x, y) #calcul la distance entre le centre et la position du curseur 
+        if rayon * 2 >= taille:
             break
     enregistrement(image_genere)
 
-mode = sys.argv[1]
+mode = sys.argv[1] #recupere la donee fournie par flask 
 if mode == "forme":
-    image_genere = int(sys.argv[2])
+    image_genere = int(sys.argv[2]) 
     nb_cote = int(sys.argv[3]) 
     nb_rep = int(sys.argv[4]) 
     taille = int(sys.argv[5]) 
