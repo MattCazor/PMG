@@ -47,6 +47,7 @@ def dessine_fractale(image_genere, taille, niveau, couleur):
     t.penup()        
     t.goto(-taille/2, taille/3)      
     t.pendown()       
+    print(niveau)
 
     for i in range(3):  
         fractale(taille, niveau)

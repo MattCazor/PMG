@@ -47,7 +47,7 @@ def generer():
         subprocess.run(["python3", "generateur.py",mode, str(images_genere), nb_cotes, nb_rep, taille, angle, couleur], check=True) 
     elif mode == "fractale":
         taille = request.form["taille"]
-        niveau = request.form["rep"]
+        niveau = request.form["niveau"]
         if not niveau:
             niveau = str(3)
         couleur = request.form["couleur"]
